@@ -1,37 +1,74 @@
 import { useState } from "react";
 const App = () => {
-  const [person, setPerson] = useState([{ name: "Arto Hellas" }]);
+  // hook states
+  const [person, setPerson] = useState([
+    { name: "Arto Hellas", number: 9800000000 },
+  ]);
   const [newName, setNewName] = useState("");
+  const [newNumber, setNewNumber] = useState("");
+  const [filter, setFileter] = useState("");
+
+  // function for name input field
   const handleChange = (e) => {
     console.log(e.target.value);
     setNewName(e.target.value);
   };
+
+  // function for number input field
+  const handleChangeNum = (e) => {
+    console.log(e.target.value);
+    setNewNumber(e.target.value);
+  };
+
+  // function for add buttion
   const handleClick = (e) => {
     e.preventDefault();
     let a = {};
     a.name = newName;
+    a.number = newNumber;
     let exists;
     person.map((val) => {
-      if (val.name === a.name) {
+      if (val.name === a.name || val.number === a.number) {
         return (exists = true);
       }
     });
     if (exists) {
-      alert(`${a.name} is already added to phonebook `);
+      alert(`${a.name} or ${a.number}is already added to phonebook `);
     } else setPerson(person.concat(a));
   };
-  const Numbers = ({ names }) => {
-    return <div>{names}</div>;
+
+  // Number component
+  const Numbers = ({ names, number }) => {
+    return (
+      <div>
+        {names} {number}
+      </div>
+    );
   };
+
+  // function for filter
+  const handleFilter = (e) => {
+    setFileter(e.target.value);
+    person.name.toLowerCase().includes(filter.toLowerCase());
+  };
+
   return (
     <div>
+      <h1>Phonebook</h1>
+      <div>
+        <span>Filter showen with :</span>
+        <input type="text" value={filter} onChange={handleFilter} />
+      </div>
       <div>
         <form>
-          <h1>Phonebook</h1>
           <span>Name</span>
           <input type="text" value={newName} onChange={handleChange} />
           <span>Number</span>
-          <input type="number"></input>
+          <input
+            type="number"
+            value={newNumber}
+            onChange={handleChangeNum}
+          ></input>
           <button onClick={handleClick}>Add new</button>
         </form>
       </div>
@@ -39,7 +76,13 @@ const App = () => {
         <h3>Numbers:</h3>
         <span>
           {person.map((val, index) => {
-            return <Numbers key={index} names={val.name}></Numbers>;
+            return (
+              <Numbers
+                key={index}
+                names={val.name}
+                number={val.number}
+              ></Numbers>
+            );
           })}
         </span>
       </div>
