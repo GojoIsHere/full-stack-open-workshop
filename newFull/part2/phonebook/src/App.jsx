@@ -6,10 +6,12 @@ const App = () => {
     { name: "Ada Lovelace", number: "39-44-5323523", id: 2 },
     { name: "Dan Abramov", number: "12-43-234345", id: 3 },
     { name: "Mary Poppendieck", number: "39-23-6423122", id: 4 },
+    { name: "zzzzz zzzzzz", number: "39-23-231231", id: 4 },
   ]);
   const [newName, setNewName] = useState("");
   const [newNumber, setNewNumber] = useState("");
-  const [filter, setFileter] = useState("");
+  const [filterName, setFilterName] = useState("");
+  const [contacts, setContacts] = useState([]);
 
   // function for name input field
   const handleChange = (e) => {
@@ -40,18 +42,20 @@ const App = () => {
     } else setPerson(person.concat(a));
   };
 
-  // Number component
-  const Numbers = ({ names, number }) => {
-    return (
-      <div>
-        {names} {number}
-      </div>
-    );
+  // function for filter field
+  const handleFilter = (e) => {
+    setFilterName(e.target.value);
   };
 
-  // function for filter
-  const handleFilter = (e) => {
-    setFileter(e.target.value);
+  const List = ({ name, number }) => {
+    if (person.toLowerCase().includes(filterName.toLowerCase())) {
+      console.log("this is test: ", name);
+      return (
+        <div>
+          {name} {number}
+        </div>
+      );
+    }
   };
 
   return (
@@ -59,7 +63,7 @@ const App = () => {
       <h1>Phonebook</h1>
       <div>
         <span>Filter showen with :</span>
-        <input type="text" value={filter} onChange={handleFilter} />
+        <input type="text" value={filterName} onChange={handleFilter} />
       </div>
       <h3>Add a new</h3>
       <div>
@@ -78,18 +82,13 @@ const App = () => {
       <div>
         <h3>Numbers:</h3>
         <span>
-          {person.map((val, index) => {
-            return (
-              <Numbers
-                key={index}
-                names={val.name}
-                number={val.number}
-              ></Numbers>
-            );
+          {person.map((val) => {
+            <List name={val.name} number={val.number}></List>;
           })}
         </span>
       </div>
     </div>
   );
 };
+
 export default App;
