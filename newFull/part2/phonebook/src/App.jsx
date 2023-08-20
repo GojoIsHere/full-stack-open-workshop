@@ -50,11 +50,9 @@ const App = () => {
   const List = ({ name, number }) => {
     if (person.toLowerCase().includes(filterName.toLowerCase())) {
       console.log("this is test: ", name);
-      return (
-        <div>
-          {name} {number}
-        </div>
-      );
+      <div>
+        {name} {number}
+      </div>;
     }
   };
 
