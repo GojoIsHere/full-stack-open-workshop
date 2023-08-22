@@ -46,7 +46,10 @@ const App = () => {
   const FilterShow = ({ note }) => {
     return (
       <span>
-        {note.name} : {note.number} <br />
+        {note.name.includes(filterName)
+          ? note.name + " : " + note.number
+          : console.log("not found")}{" "}
+        <br />
       </span>
     );
   };
