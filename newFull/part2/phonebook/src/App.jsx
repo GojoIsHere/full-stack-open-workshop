@@ -10,7 +10,7 @@ const App = () => {
   ]);
   const [newName, setNewName] = useState("");
   const [newNumber, setNewNumber] = useState("");
-  // const [filterName, setFilterName] = useState("");
+  const [filterName, setFilterName] = useState("");
 
   // function for name input field
   const handleChange = (e) => {
@@ -40,11 +40,21 @@ const App = () => {
       alert(`${a.name} or ${a.number}is already added to phonebook `);
     } else setPerson(person.concat(a));
   };
-
+  const handleFilter = (e) => {
+    setFilterName(e.target.value);
+  };
+  const FilterShow = ({ note }) => {
+    return (
+      <span>
+        {note.name} : {note.number} <br />
+      </span>
+    );
+  };
   return (
     <div>
       <h1>Phonebook</h1>
-
+      Filter shown with :
+      <input type="text" onChange={handleFilter} />
       <h3>Add a new</h3>
       <div>
         <form>
@@ -61,13 +71,9 @@ const App = () => {
       </div>
       <div>
         <h3>Numbers:</h3>
-        <ul>
-          {person.map((note, i) => (
-            <li key={i}>
-              {note.name} : {note.number}
-            </li>
-          ))}
-        </ul>
+        {person.map((note, i) => (
+          <FilterShow key={i} note={note}></FilterShow>
+        ))}
       </div>
     </div>
   );
