@@ -1,4 +1,7 @@
 import { useState } from "react";
+import Filter from "./components/Filter";
+import PersonForm from "./components/PersonForm";
+import Persons from "./components/Persons";
 const App = () => {
   // hook states
   const [person, setPerson] = useState([
@@ -43,40 +46,27 @@ const App = () => {
   const handleFilter = (e) => {
     setFilterName(e.target.value);
   };
-  const FilterShow = ({ note }) => {
-    return (
-      <span>
-        {note.name.includes(filterName)
-          ? note.name + " : " + note.number
-          : console.log("not found")}{" "}
-        <br />
-      </span>
-    );
-  };
+
   return (
     <div>
       <h1>Phonebook</h1>
-      Filter shown with :
-      <input type="text" onChange={handleFilter} />
+
+      <Filter handleFilter={handleFilter}></Filter>
+
       <h3>Add a new</h3>
+
       <div>
-        <form>
-          <span>Name</span>
-          <input type="text" value={newName} onChange={handleChange} />
-          <span>Number</span>
-          <input
-            type="number"
-            value={newNumber}
-            onChange={handleChangeNum}
-          ></input>
-          <button onClick={handleClick}>Add new</button>
-        </form>
+        <PersonForm
+          newName={newName}
+          newNumber={newNumber}
+          handleChange={handleChange}
+          handleChangeNum={handleChangeNum}
+          handleClick={handleClick}
+        ></PersonForm>
       </div>
       <div>
         <h3>Numbers:</h3>
-        {person.map((note, i) => (
-          <FilterShow key={i} note={note}></FilterShow>
-        ))}
+        <Persons person={person} filterName={filterName}></Persons>
       </div>
     </div>
   );
