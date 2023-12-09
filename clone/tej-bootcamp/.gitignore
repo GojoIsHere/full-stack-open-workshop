@@ -1,0 +1,13 @@
+node_modules/
+.parcel-cache/
+dist/
+.env
+.DS_Store
+coverage/
+.vscode/
+cypress/videos/
+part7/react-router/build
+*icloud
+* 2
+package-lock.json
+algo/

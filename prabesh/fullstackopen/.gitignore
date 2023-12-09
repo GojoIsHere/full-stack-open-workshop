@@ -1,0 +1,8 @@
+node_modules/
+.parcel-cache/
+.env
+.DS_Store
+coverage/
+.vscode/
+package-lock.json
+db.json

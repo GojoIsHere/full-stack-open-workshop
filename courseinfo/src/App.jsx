@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import Display from "./Display";
 
 const App = () => {
   const [results, setResults] = useState([]);
@@ -10,19 +11,19 @@ const App = () => {
     let fetchingDatabase = axios.get("http://localhost:3001/notes");
     fetchingDatabase.then((database) => {
       console.log("returned promise");
+      // Assigning the data to results
       setResults(database.data);
       console.dir(database.data);
     });
-
     // console.log(fetchingDatabase);
   }, []);
-  console.log("this is : ", results);
-  console.log(Array.isArray(results));
+
+  // console.log("this is : ", results);
+  // console.log(Array.isArray(results));
+
   return (
     <div>
-      {results.map((val) => (
-        <h1 key={val.id}>{val.content}</h1>
-      ))}
+      <Display results={results} />
     </div>
   );
 };
